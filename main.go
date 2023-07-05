@@ -185,7 +185,8 @@ func generate(release *github.RepositoryRelease, output string) error {
 }
 
 func setActionOutput(name string, content string) {
-	os.Stdout.WriteString("::set-output name=" + name + "::" + content + "\n")
+	new_content := strings.Replace(content, "Released on ", "", 1)
+	os.Stdout.WriteString("::set-output name=" + name + "::" + new_content + "\n")
 }
 
 func release(source string, destination string, output string) error {

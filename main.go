@@ -54,10 +54,10 @@ func get(downloadURL *string) ([]byte, error) {
 
 func download(release *github.RepositoryRelease) ([]byte, error) {
 	geositeAsset := common.Find(release.Assets, func(it *github.ReleaseAsset) bool {
-		return *it.Value == "geosite.dat";
+		return (*it.Name == "geosite.dat") || (*it.Name == "dlc.dat");
 	})
 	geositeChecksumAsset := common.Find(release.Assets, func(it *github.ReleaseAsset) bool {
-		return *it.Value == "geosite.dat.sha256sum";
+		return (*it.Name == "geosite.dat.sha256sum") || (*it.Name == "dlc.dat.sha256sum");
 	})
 	if geositeAsset == nil {
 		return nil, E.New("geosite asset not found in upstream release ", release.Name)
